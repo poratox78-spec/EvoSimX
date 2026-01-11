@@ -1,13 +1,16 @@
-from core.population import Population
-from simulation.world import World
+from simulation.ecosystem import Ecosystem
+from observer.gpt_observer import GPTObserver
 
-def main():
-    world = World()
-    pop = Population(size=50)
-    
-    for step in range(100):
-        pop.step(world)
-        print(f"Step {step} | Avg fitness: {pop.average_fitness():.3f}")
+eco = Ecosystem()
+observer = GPTObserver()
 
-if __name__ == "__main__":
-    main()
+for step in range(200):
+    eco.step()
+
+    if step % 10 == 0:
+        report = observer.analyze(eco)
+        prediction = observer.predict(report)
+
+        print(f"Step {step}")
+        print("Observed :", report)
+        print("Predicted:", prediction)
