@@ -1,14 +1,6 @@
-import random
-
 class Agent:
-    def __init__(self):
-        self.energy = random.random()
-        self.memory = []
-
-    def act(self, world):
-        self.energy += world.signal() * 0.1
-        self.memory.append(self.energy)
-
-    def fitness(self):
-        return self.energy
-      
+    def act(self, world, shared_memory):
+        delta = world.signal() * 0.1
+        self.energy += delta
+        shared_memory.write(delta)
+        self.energy += shared_memory.read() * 0.01
