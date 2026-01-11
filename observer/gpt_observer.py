@@ -13,3 +13,10 @@ class GPTObserver:
             k: v["avg_fitness"] * 1.05
             for k, v in report.items()
         }
+def detect_patterns(self, history):
+    trends = {}
+    for k, values in history.items():
+        if len(values) > 5:
+            trends[k] = values[-1] - values[-5]
+    return trends
+    
